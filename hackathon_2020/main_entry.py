@@ -53,6 +53,16 @@ def default_intent():
     msg = "Je n'ai pas compris la question."
     return response_body(msg, msg)
 
+def localisation_intent():
+    return {
+        "systemIntent": {
+            "intent": "actions.intent.PERMISSION",
+            "data": {
+                "@type": "type.googleapis.com/google.actions.v2.PermissionValueSpec"
+            }
+        }
+    }
+
 @app.route("/thales_hackathon_2020", methods=["GET", "POST"])
 def entry_api():
     myreq = json.loads(request.data)
@@ -68,6 +78,8 @@ def entry_api():
         return etat_mer_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Declaration dauphins":
         return declaration_dauphins_intent()
-
+    elif myreq["queryResult"]["intent"]["displayName"] == "Localisation":
+        return localisation_intent()
+    
 if __name__ == "__main__":
     app.run(port=8456)
