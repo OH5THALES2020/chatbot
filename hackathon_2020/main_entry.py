@@ -20,7 +20,7 @@ def hour_intent():
     return response_body(msg, msg)
 
 def pleine_mer_intent():
-    msg = 'Ocean Bot ' + "la mer sera pleine a 17h40"
+    msg = 'Ocean Botte et ' + "la mer sera pleine a 17h40"
     msg = msg + " et le coefficient sera de 95."
     return response_body(msg, msg)
 
@@ -29,15 +29,15 @@ def meteo_marine_intent():
     return response_body(msg, msg)
 
 def etat_mer_intent():
-    msg = "La mer va être agitée, avec un vent contre-courant, sans doute plus calme côté sud."
+    msg = 'Ocean Botte ' + "La mer va être agitée, avec un vent contre-courant, sans doute plus calme côté sud."
     return response_body(msg, msg)
 
 def hauteur_eau_intent():
-    msg = "actuellement à votre position il y a 4 m au-dessus du zéro. Cela va monter encore durant 3 heures, de 3 m. Voulez-vous un conseil pour le mouillage ?"
+    msg = 'Ocean Botte et ' +  "actuellement à votre position il y a 4 m au-dessus du zéro. Cela va monter encore durant 3 heures, de 3 m. Voulez-vous un conseil pour le mouillage ?"
     return response_body(msg, msg)
 
 def declaration_dauphins_intent():
-    msg = "très bien, je reporte cette observation aux organismes intéressés."
+    msg = 'Ocean Botte, ' + "très bien, je reporte cette observation aux organismes intéressés."
     return response_body(msg, msg)
 
 def default_intent():
