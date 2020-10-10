@@ -1,8 +1,12 @@
 import pandas as pd
 from datetime import datetime
 
+tidesDataFileBoulogneSurMer = "/hackathon_2020/data/annuaire_maree_BOULOGNE-SUR-MER_2020"
 tidesDataFileBrest = "./hackathon_2020/data/annuaire_maree_BREST_2020.csv"
-
+tidesDataFileLaRochelle = "./hackathon_2020/data/annuaire_maree_LA_ROCHELLE-PALLICE_2020.csv"
+tidesDataFileLeHavre = "./hackathon_2020/data/annuaire_maree_LE_HAVRE_2020.csv"
+tidesDataFileSaintMalo = "./hackathon_2020/data/annuaire_maree_SAINT-MALO_2020.csv"
+tidesDataFileSocoa = "./hackathon_2020/data/annuaire_maree_SOCOA_2020.csv"
 
 def getMaree(ville, date, pm_bm):
     print("REQUEST ville: ", ville, ", date: ", date, ", PM/BM: "+pm_bm)
@@ -15,8 +19,18 @@ def getMaree(ville, date, pm_bm):
          return readTidesFile(fileName, date, pm_bm)
 
 def getDataFileName(ville):
+    if ville is "boulogne-sur-mer":
+        return tidesDataFileBoulogneSurMer
     if ville is "brest":
         return tidesDataFileBrest
+    if ville is "la rochelle":
+        return tidesDataFileLaRochelle
+    if ville is "le havre":
+        return tidesDataFileLeHavre
+    if ville is "saint-malo":
+        return tidesDataFileSaintMalo
+    if ville is "socoa":
+        return tidesDataFileSocoa
     else:
         pass
 
@@ -40,4 +54,4 @@ def searchTide(requestDate, fileName, heureMatinHeader, heureSoirHeader):
             continue
 
 if __name__=="__main__":
-    print(getMaree("brest","19/01/2020","pm"))
+    print(getMaree("brest","10/10/2020","bm"))
