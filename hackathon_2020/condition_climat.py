@@ -185,3 +185,4 @@ def getMeteoMarine(ville):
 
     
     print (returnedStr)
+    return returnedStr
