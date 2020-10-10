@@ -54,7 +54,7 @@ def entry_api():
         return meteo_marine_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Pleine mer":
         return pleine_mer_intent()
-    elif myreq["queryResult"]["intent"]["displayName"] == "Hauteur d'eau":
+    elif myreq["queryResult"]["intent"]["displayName"] == "Hauteur eau":
         return hauteur_eau_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Etat mer":
         return etat_mer_intent()
