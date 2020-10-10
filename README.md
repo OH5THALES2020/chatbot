@@ -32,5 +32,5 @@ python3 hackathon_2020/main_entry.py
 
 # then
 
-$NGROK_INSTALL_DIR/ngrok http http://localhost:5000
+$NGROK_INSTALL_DIR/ngrok http http://localhost:8456
 ```
