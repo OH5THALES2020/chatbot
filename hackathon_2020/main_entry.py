@@ -16,7 +16,8 @@ def response_body(fullfillment_text, display_text):
 
 
 def hour_intent():
-    return response_body("il est {} heure".format(str(datetime.now())), il est 10 heure)
+    msg = "il est {} heure".format(str(datetime.now()))
+    return response_body(msg, msg)
 
 @app.route("/thales_hackathon_2020", methods=["GET", "POST"])
 def entry_api():
