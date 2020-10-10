@@ -22,7 +22,7 @@ def hour_intent():
 @app.route("/thales_hackathon_2020", methods=["GET", "POST"])
 def entry_api():
     myreq = json.loads(request.data)
-    if myreq["intent"]["displayName"] == "heure":
+    if myreq["queryResult"]["intent"]["displayName"] == "heure":
         return hour_intent()
     myparameters = list(myreq["queryResult"]["parameters"].values())
     return response_body(
