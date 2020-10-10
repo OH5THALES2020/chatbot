@@ -32,8 +32,8 @@ def pleine_mer_intent():
 
 def meteo_marine_intent():
     msg = condition_climat.getMeteoMarine("Brest")
-    if (msg == null) :
-         msg = "Bulletin côte 'La Hague – Penmarc'h' matin Prévisions pour la journée du samedi 10 octobre VENT : Nord-Ouest 4 à 5, fraichissant 5 à 6 en Manche l'après-midi. MER : agitée. HOULE : Ouest à Nord-Ouest 2 m sur pointe Bretagne. TEMPS : Ciel nuageux. VISIBILITE : Bonne."
+    
+    #     msg = "Bulletin côte 'La Hague – Penmarc'h' matin Prévisions pour la journée du samedi 10 octobre VENT : Nord-Ouest 4 à 5, fraichissant 5 à 6 en Manche l'après-midi. MER : agitée. HOULE : Ouest à Nord-Ouest 2 m sur pointe Bretagne. TEMPS : Ciel nuageux. VISIBILITE : Bonne."
     
     return response_body(msg, msg)
 
