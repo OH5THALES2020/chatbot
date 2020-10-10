@@ -2,9 +2,19 @@ import requests
 import json
 import datetime
 
-def getLatLongFromCityName(ville):   
-    url_weather = "http://api.openweathermap.org/data/2.5/weather?q="+ville+"&APPID=beb97c1ce62559bba4e81e28de8be095&unit=standard&lang=fr"
-    data = requests.get(url_weather).json()
+from meteofrance.client import MeteoFranceClient
+from meteofrance.helpers import readeable_phenomenoms_dict
+class PositionLatLong:  
+  latitude = 0.0
+  longitude = 0.0 # list cannot be initialized here!
 
-    position =[data['coord']['lat'], data['coord']['lon']]
+def getLatLongFromCityName(ville):   
+    client = MeteoFranceClient()
+    list_places = client.search_places(ville)
+    my_place = list_places[0]
+
+    position = PositionLatLong()
+    position.latitude = my_place.latitude
+    position.longitude = my_place.longitude
+    
     return position
