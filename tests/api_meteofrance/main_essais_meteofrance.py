@@ -33,3 +33,5 @@ my_place_weather_alerts = client.get_warning_current_phenomenoms(my_place.admin2
 readable_warnings = readeable_phenomenoms_dict(
     my_place_weather_alerts.phenomenons_max_colors
 )
+
+print (readable_warnings)
