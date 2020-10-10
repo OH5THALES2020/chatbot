@@ -20,7 +20,7 @@ def hour_intent():
     return response_body(msg, msg)
 
 def pleine_mer_intent():
-    msg = "la mer sera pleine a 17h40"
+    msg = 'Ocean Bot ' + "la mer sera pleine a 17h40"
     msg = msg + " et le coefficient sera de 95."
     return response_body(msg, msg)
 
