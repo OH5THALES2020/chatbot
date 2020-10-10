@@ -2,6 +2,7 @@
 
 from flask import Flask, request
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -14,9 +15,14 @@ def response_body(fullfillment_text, display_text):
     }
 
 
+def hour_intent():
+    return response_body("il est {} heure".format(str(datetime.now())), il est 10 heure)
+
 @app.route("/thales_hackathon_2020", methods=["GET", "POST"])
 def entry_api():
     myreq = json.loads(request.data)
+    if myreq["intent"]["displayName"] == "heure":
+        return hour_intent()
     myparameters = list(myreq["queryResult"]["parameters"].values())
     return response_body(
             "la somme est : " + str(int(sum(myparameters))),
