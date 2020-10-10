@@ -26,7 +26,6 @@ def getConditionCielCourant(ville):
 
     #état du ciel 
     temps = data['weather'][0]['description']
-    print("Conditions climatiques : {}".format(temps))
     return "Conditions climatiques : {}".format(temps)
 
 def getPluieDansLheure(ville):
@@ -53,7 +52,5 @@ def getPluieDansLheure(ville):
             rain_status = next_rain_dt.strftime("%H:%M")
     else:
         rain_status = "Absence de données."
-
-    print (rain_status)
 
     return rain_status
