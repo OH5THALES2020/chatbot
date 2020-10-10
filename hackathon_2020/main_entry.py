@@ -50,6 +50,8 @@ def entry_api():
     myreq = json.loads(request.data)
     if myreq["queryResult"]["intent"]["displayName"] == "heure":
         return hour_intent()
+    elif myreq["queryResult"]["intent"]["displayName"] == "Meteo marine":
+        return meteo_marine_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Pleine mer":
         return pleine_mer_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Hauteur d'eau":
