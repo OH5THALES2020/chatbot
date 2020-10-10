@@ -5,10 +5,8 @@ Created on 10 oct. 2020
 '''
 
 import requests
-import json
 
 from datetime import datetime
-import time
 
 class HauteurEau:
 
@@ -25,14 +23,14 @@ class HauteurEau:
     # Unites :
     # latitude et longitude : degres
     # date (heure utc)
-    # resultat donne en metres
+    # resultat : un dictionnaire avec un clef hauteur (courante) en metres, une clef duree en heures une clef amplitude en metres sur les 12  prochaines heures
     def calculerHauteurDeau(self,latitude,longitude,date):
             
         paramTimestamp = "{}".format(int(date.timestamp()).__str__())
         paramLatitude = "{}".format(float(latitude).__str__())
         paramLongitude = "{}".format(float(longitude).__str__())
     
-        querystring = {"interval":"30","timestamp":paramTimestamp,"duration":"1440","latitude":paramLatitude,"longitude":paramLongitude}
+        querystring = {"interval":"60","timestamp":paramTimestamp,"duration":"1440","latitude":paramLatitude,"longitude":paramLongitude}
         
         print(querystring) 
 
@@ -40,17 +38,32 @@ class HauteurEau:
 
         data = self.response.json()
         
-        print(type(data))
-
-        print(data)
-        hauteur = data["heights"][0]["height"]
+        self.hauteur = data["heights"][0]["height"] + 3.70
         
-        print(hauteur)
-    
-        return hauteur
+        i = 0
+        dureeMontee = 0
+        hmin = self.hauteur -3.70
+        hmax = self.hauteur -3.70
+        
+        while(i<len(data["heights"]) and (i<12)):
+            
+            if(data["heights"][i]["height"]>hmax):
+                hmax = data["heights"][i]["height"]
+                dureeMontee = dureeMontee +1
+                
+            if(data["heights"][i]["height"]<hmin):
+                hmin = data["heights"][i]["height"]
+        
+            i = i+1
+        
+        self.amplitude = hmax - self.hauteur + 3.70
+        
+        resultat = {"hauteur" : self.hauteur, "duree" : dureeMontee, "amplitude" : self.amplitude}
+        
+        print(resultat)
     
     def test(self):
         
         date = datetime.utcnow()
         
-        self.calculerHauteurDeau(47.44, -4.8, date)
+        self.calculerHauteurDeau(48.03, -4.55, date)
