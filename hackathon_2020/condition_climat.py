@@ -5,8 +5,8 @@ Created on 10 oct. 2020
 '''
 
 
-#Consultation API météo avec openweathermap
-# API dispo ici : https://openweathermap.org/current
+#Consultation API météo avec openweathermap ou meteofrance
+# API openweathermap dispo ici : https://openweathermap.org/current
 
 import requests
 import json
@@ -18,6 +18,8 @@ from meteofrance.helpers import readeable_phenomenoms_dict
 from meteofrance.model import Forecast
 
 import rechercheLatLong
+import locale
+locale.setlocale(locale.LC_TIME,'')
 
 def getConditionCielCourant(ville):
    latLong = rechercheLatLong.getLatLongFromCityName(ville)
@@ -28,7 +30,7 @@ def getConditionCielLatLon(lat, lon) :
     r_weather = requests.get(url_weather)
     data = r_weather.json()
     temps = data['weather'][0]['description']
-    return "Conditions climatiques : {}".format(temps)
+    return "Ciel {}".format(temps)
 
 def getPluieDansLheure(ville):    
     my_place = rechercheLatLong.getLatLongFromCityName(ville)
@@ -74,3 +76,77 @@ def getWind(ville):
     time = datetime.utcfromtimestamp(dt).strftime('%d-%m-%Y %H:%M:%S')
     
     return ("la vitesse du vent à " + str(time) + " est de " + str(test['speed']*3600/1000) +" km/h avec une direction de " + str(test['direction']) + " degrée")
+
+
+def getMeteoMarine(ville):
+    #client = MeteoFranceClient()
+    #list_places = client.search_places(ville)
+    #my_place = list_places[0]
+    #url_weather = "http://ws.meteofrance.com/ws//getDetail/france/"+ str(my_place.insee) + "0.json"
+    url_weather = "http://ws.meteofrance.com/ws//getDetail/france/290190.json"
+    print (url_weather)
+    
+    r_weather = requests.get(url_weather)
+    data = r_weather.json()
+    result =data['result'] 
+
+    res_Ville = result['ville']
+
+    nomVille = res_Ville['nom']
+    bulletinCote = res_Ville['bulletinCote']
+    print(str(nomVille) + "/" + str(bulletinCote))
+
+    # print(result)
+    resume_today = result['resumes']['0_resume']
+    #print(resume_today)
+    
+    descr = resume_today["description"]
+    print (descr)
+
+    returnedStr = ""
+    if (bulletinCote == True):
+        returnedStr = returnedStr + "Bulletin côte '"+nomVille + "'"
+
+    date = int(resume_today['date'])
+
+    #timestamp = 1602354456
+    #dt_object = datetime.fromtimestamp(timestamp)
+    #print("dt_object =", dt_object)
+
+    tutu = datetime.fromtimestamp((date/1000)) #gros hack...
+
+    heure = int(tutu.strftime("%H"))
+
+    if heure >= 22 :
+        returnedStr = returnedStr + " Nuit "
+    elif heure >= 18:
+        returnedStr = returnedStr + " Soir "
+    elif heure >= 12:
+        returnedStr = returnedStr + " Après-midi "
+    else:
+        returnedStr =" Matin "
+
+    dateStr = tutu.strftime("%A %e %B")
+    returnedStr = returnedStr + "Prévisions pour la journée du " + dateStr
+    
+    ventForce = int(resume_today['vitesseVent'])    
+    forceRafales = int(resume_today['forceRafales'])
+    returnedStr = returnedStr + " VENT : direction " + "TODO" + " de " + str(ventForce) + " km/h "
+    if (forceRafales > 0) :
+        returnedStr = returnedStr + " avec des rafales à " + str(forceRafales) + " km/h."
+    
+
+    #" VENT : Nord-Ouest 4 à 5, fraichissant 5 à 6 en Manche l'après-midi.  #TODO
+    # MER : agitée. HOULE : Ouest à Nord-Ouest 2 m sur pointe Bretagne.  #TODO
+    # TEMPS : Ciel nuageux..
+    returnedStr = returnedStr + ". " + getConditionCielCourant(nomVille)
+
+    probaPluie = resume_today['probaPluie']
+    print (probaPluie)
+    
+    if (probaPluie is int and probaPluie > 0) :
+        returnedStr = returnedStr + " avec probabilité de pluie de " + str(probaPluie) + "%."
+    # VISIBILITE : Bonne."
+
+    
+    print (returnedStr)
