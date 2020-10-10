@@ -58,7 +58,6 @@ def entry_api():
         return etat_mer_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Declaration dauphins":
         return declaration_dauphins_intent()
-    else return default_intent()
 
 if __name__ == "__main__":
     app.run(port=8456)
