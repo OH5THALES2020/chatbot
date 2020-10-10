@@ -34,7 +34,6 @@ def etat_mer_intent():
 
 def hauteur_eau_intent():
     msg = "actuellement à votre position il y a 4 m au-dessus du zéro. Cela va monter encore durant 3 heures, de 3 m. Voulez-vous un conseil pour le mouillage ?"
-    msg = msg + " et le coefficient sera de 95."
     return response_body(msg, msg)
 
 def declaration_dauphins_intent():
