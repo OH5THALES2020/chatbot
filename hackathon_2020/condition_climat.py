@@ -118,16 +118,17 @@ def getMeteoMarine(ville):
     heure = int(tutu.strftime("%H"))
 
     if heure >= 22 :
-        returnedStr = returnedStr + " Nuit "
+        returnedStr = returnedStr + " Nuit."
     elif heure >= 18:
-        returnedStr = returnedStr + " Soir "
+        returnedStr = returnedStr + " Soir."
     elif heure >= 12:
-        returnedStr = returnedStr + " Après-midi "
+        returnedStr = returnedStr + " Après-midi."
     else:
-        returnedStr =" Matin "
+        returnedStr =" Matin."
 
     dateStr = tutu.strftime("%A %e %B")
-    returnedStr = returnedStr + "Prévisions pour la journée du " + dateStr
+    print (dateStr)
+    returnedStr = returnedStr + "Prévisions pour la journée du " + dateStr +" ."
     
     ventForce = int(resume_today['vitesseVent'])    
     forceRafales = int(resume_today['forceRafales'])
@@ -166,7 +167,7 @@ def getMeteoMarine(ville):
     elif (directionVent == 0 ) :
         directionVentStr = " Nord"
 
-    returnedStr = returnedStr + " VENT : direction " + "TODO" + " de " + str(ventForce) + " km/h "
+    returnedStr = returnedStr + " VENT, direction " + directionVentStr + " de " + str(ventForce) + " km/h "
     if (forceRafales > 0) :
         returnedStr = returnedStr + " avec des rafales à " + str(forceRafales) + " km/h."
     
@@ -185,3 +186,4 @@ def getMeteoMarine(ville):
 
     
     print (returnedStr)
+    return returnedStr
