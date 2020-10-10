@@ -23,7 +23,7 @@ def hour_intent():
 
 def pleine_mer_intent():
     heure = getMaree("brest","10/10/2020","pm")
-    heure_list = heure.split(':')
+    heure_list = heure[0].split(':')
     result = heure_list[0] + 'h'+ heure_list[1] 
     msg = 'Ocean Botte' + "la mer sera pleine a {}".format(result)
     msg = msg + " et le coefficient sera de 95."
