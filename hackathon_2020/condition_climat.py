@@ -19,7 +19,7 @@ from meteofrance.model import Forecast
 
 import rechercheLatLong
 import locale
-locale.setlocale(locale.LC_TIME,'')
+locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
 def getConditionCielCourant(ville):
    latLong = rechercheLatLong.getLatLongFromCityName(ville)
