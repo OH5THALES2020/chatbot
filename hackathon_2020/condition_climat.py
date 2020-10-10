@@ -11,9 +11,11 @@ Created on 10 oct. 2020
 import requests
 import json
 import datetime
+from datetime import datetime
 
 from meteofrance.client import MeteoFranceClient
 from meteofrance.helpers import readeable_phenomenoms_dict
+from meteofrance.model import Forecast
 
 import rechercheLatLong
 
@@ -58,3 +60,17 @@ def getPluieDansLheureLatLon(lat, lon) :
         rain_status = "Absence de données."
 
     return rain_status
+
+
+def getWind(ville):    
+    client = MeteoFranceClient()
+    
+    my_place = rechercheLatLong.getLatLongFromCityName(ville)
+    jsonObj = client.get_forecast(my_place.latitude, my_place.longitude)
+
+    premier= jsonObj.forecast[12]
+    test = premier['wind']
+    dt = premier['dt']
+    time = datetime.utcfromtimestamp(dt).strftime('%d-%m-%Y %H:%M:%S')
+    
+    return ("la vitesse du vent à " + str(time) + " est de " + str(test['speed']*3600/1000) +" km/h avec une direction de " + str(test['direction']) + " degrée")
