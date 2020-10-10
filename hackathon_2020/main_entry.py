@@ -4,6 +4,7 @@ from flask import Flask, request
 import json
 from datetime import datetime
 import condition_climat
+from horairesMarees import *
 
 app = Flask(__name__)
 
@@ -21,8 +22,6 @@ def hour_intent():
     return response_body(msg, msg)
 
 def pleine_mer_intent():
-
-    from horairesMarees import *
     heure = getMaree("brest","10/10/2020","pm")
     heure_list = heure.split(':')
     result = heure_list[0] + 'h'+ heure_list[1] 
