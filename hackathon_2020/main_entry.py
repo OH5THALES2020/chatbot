@@ -2,6 +2,7 @@
 
 from flask import Flask, request
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -14,9 +15,25 @@ def response_body(fullfillment_text, display_text):
     }
 
 
+def hour_intent():
+    msg = "il est {} heure".format(str(datetime.now()))
+    return response_body(msg, msg)
+
+
+def pleine_mer_intent():
+    msg = "la mer sera pleine a {}".format(str(datetime.now()))
+    msg = msg + " et le coefficient sera de 95."
+    return response_body(msg, msg)
+
+
 @app.route("/thales_hackathon_2020", methods=["GET", "POST"])
 def entry_api():
     myreq = json.loads(request.data)
+    if myreq["queryResult"]["intent"]["displayName"] == "heure":
+        return hour_intent()
+    elif myreq["queryResult"]["intent"]["displayName"] == "Pleine mer":
+        return pleine_mer_intent()
+
     myparameters = list(myreq["queryResult"]["parameters"].values())
     return response_body(
             "la somme est : " + str(int(sum(myparameters))),
