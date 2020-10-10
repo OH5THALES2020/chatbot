@@ -131,6 +131,41 @@ def getMeteoMarine(ville):
     
     ventForce = int(resume_today['vitesseVent'])    
     forceRafales = int(resume_today['forceRafales'])
+    directionVent = int(resume_today['directionVent'])
+
+    if (directionVent > 315) :
+        directionVentStr = " Nord Nord Ouest"
+    elif (directionVent == 315) :
+        directionVentStr = " Nord Ouest"
+    elif (directionVent > 270) :
+        directionVentStr = " Nord Ouest"
+    elif (directionVent == 270) :
+        directionVentStr = " Ouest"
+    elif (directionVent > 225) :
+        directionVentStr = " Ouest Sud Ouest"
+    elif (directionVent == 225) :
+        directionVentStr = " Sud Ouest"
+    elif (directionVent > 180) :
+        directionVentStr = " Sud Sud Ouest"
+    elif (directionVent == 180) :
+        directionVentStr = " Sud"
+    elif (directionVent > 135) :
+        directionVentStr = " Sud Sud Est"
+    elif (directionVent == 135) :
+        directionVentStr = " Sud Est"
+    elif (directionVent > 90) :
+        directionVentStr = " Est Sud Est"
+    elif (directionVent == 90) :
+        directionVentStr = " Est"
+    elif (directionVent > 45) :
+        directionVentStr = " Est Nord Est"
+    elif (directionVent == 45) :
+        directionVentStr = " Nord Est"
+    elif (directionVent > 0 ) :
+        directionVentStr = " Nord Nord Est"
+    elif (directionVent == 0 ) :
+        directionVentStr = " Nord"
+
     returnedStr = returnedStr + " VENT : direction " + "TODO" + " de " + str(ventForce) + " km/h "
     if (forceRafales > 0) :
         returnedStr = returnedStr + " avec des rafales à " + str(forceRafales) + " km/h."
