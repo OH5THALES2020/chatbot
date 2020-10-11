@@ -1,7 +1,8 @@
 import pandas as pd
 from datetime import datetime
+import math
 
-tidesDataFileBoulogneSurMer = "/hackathon_2020/data/annuaire_maree_BOULOGNE-SUR-MER_2020"
+tidesDataFileBoulogneSurMer = "./hackathon_2020/data/annuaire_maree_BOULOGNE-SUR-MER_2020.csv"
 tidesDataFileBrest = "./hackathon_2020/data/annuaire_maree_BREST_2020.csv"
 tidesDataFileLaRochelle = "./hackathon_2020/data/annuaire_maree_LA_ROCHELLE-PALLICE_2020.csv"
 tidesDataFileLeHavre = "./hackathon_2020/data/annuaire_maree_LE_HAVRE_2020.csv"
@@ -32,17 +33,17 @@ def getCoef(ville, date):
         return round(readTidesFileCoef(fileName, date))
 
 def getDataFileName(ville):
-    if ville is 'boulogne-sur-mer':
+    if ville == 'Boulogne-Sur-Mer':
         return tidesDataFileBoulogneSurMer
-    if ville is "brest":
+    if ville == "Brest":
         return tidesDataFileBrest
-    if ville is "larochelle":
+    if ville == "La Rochelle":
         return tidesDataFileLaRochelle
-    if ville is "lehavre":
+    if ville == "Le Havre":
         return tidesDataFileLeHavre
-    if ville is "saintmalo":
+    if ville == "Saint-Malo":
         return tidesDataFileSaintMalo
-    if ville is "socoa":
+    if ville == "Socoa":
         return tidesDataFileSocoa
     else:
         pass
@@ -56,18 +57,34 @@ def readTidesFileHoraire(fileName, date, pm_bm):
         return "define pm/bm"
 
 def readTidesFileCoef(fileName, date):
-        return searchTide(date, fileName, "Coeff. Maree Matin","Coeff. Maree Soir")
+        return searchTideCoef(date, fileName, "Coeff. Maree Matin","Coeff. Maree Soir")
 
 def searchTide(requestDate, fileName, matinHeader, soirHeader):
     #print("heure system ", datetime.now().time()) TODO
     for index in range(365):
         date = pd.read_csv(fileName, sep=';')["Date"][index]
         if date == requestDate:
-            horaire =  pd.read_csv(fileName, sep=';')[soirHeader][index]     
-            return horaire
+            value =  pd.read_csv(fileName, sep=';')[soirHeader][index]
+            #test si une seule maree dans la journee, si non on prends la suivante
+            if isinstance(value,str) and len(value.strip()) == 0:
+                value = pd.read_csv(fileName, sep=';')[matinHeader][index+1]
+            return value
+        else:
+            continue
+        
+def searchTideCoef(requestDate, fileName, matinHeader, soirHeader):
+    for index in range(365):
+        date = pd.read_csv(fileName, sep=';')["Date"][index]
+        if date == requestDate:
+            value =  pd.read_csv(fileName, sep=';')[soirHeader][index]
+            #test validitée coef
+            f = float(value)
+            if math.isnan(f):
+                value = pd.read_csv(fileName, sep=';')[matinHeader][index+1]
+            return value
         else:
             continue
 
 if __name__=="__main__":
-    print(getMaree('brest',"11/10/2020"))
-    print(getCoef('brest',"11/10/2020"))
+    print(getMaree('Saint-Malo',"11/10/2020"))
+    print(getCoef('Saint-Malo',"11/10/2020"))

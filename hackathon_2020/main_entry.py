@@ -21,9 +21,9 @@ def hour_intent():
     msg = "il est {} heure".format(str(datetime.now()))
     return response_body(msg, msg)
 
-def pleine_mer_intent():
-    msg = "la mer sera pleine a {}".format(getMaree("brest","11/10/2020","pm"))
-    msg = msg + " et le coefficient sera de {}.".format(getCoef("brest","11/10/2020"))
+def pleine_mer_intent(ville):
+    msg = "la mer sera pleine a {}".format(getMaree(ville,"11/10/2020","pm"))
+    msg = msg + " et le coefficient sera de {}.".format(getCoef(ville,"11/10/2020"))
     return response_body(msg, msg)
 
 def meteo_marine_intent(ville):
@@ -71,7 +71,11 @@ def entry_api():
             ville = "Brest"
         return meteo_marine_intent(ville)
     elif myreq["queryResult"]["intent"]["displayName"] == "Pleine mer":
-        return pleine_mer_intent()
+        try:
+            ville = myreq["queryResult"]["parameters"]["location"]["city"]
+        except TypeError:
+            ville = "Brest"
+        return pleine_mer_intent(ville)
     elif myreq["queryResult"]["intent"]["displayName"] == "Hauteur eau":
         return hauteur_eau_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Etat mer":
