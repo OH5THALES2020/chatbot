@@ -108,7 +108,9 @@ def getMeteoMarine(ville):
     returnedStr = ""
     if (bulletinCote == True):
         returnedStr = returnedStr + "Bulletin pour la côte de '"+nomVille + "', "
-
+    else :
+        returnedStr = returnedStr + "Météo pour la ville de '"+nomVille + "', "
+        
     date = int(resume_today['date'])
 
     #timestamp = 1602354456
