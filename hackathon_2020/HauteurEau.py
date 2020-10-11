@@ -60,7 +60,7 @@ class HauteurEau:
         
         resultat = {"hauteur" : self.hauteur, "duree" : dureeMontee, "amplitude" : self.amplitude}
         
-        print(resultat)
+        return resultat
     
     def test(self):
         
