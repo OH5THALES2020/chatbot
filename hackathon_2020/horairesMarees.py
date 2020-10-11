@@ -58,12 +58,12 @@ def readTidesFileHoraire(fileName, date, pm_bm):
 def readTidesFileCoef(fileName, date):
         return searchTide(date, fileName, "Coeff. Maree Matin","Coeff. Maree Soir")
 
-def searchTide(requestDate, fileName, heureMatinHeader, heureSoirHeader):
+def searchTide(requestDate, fileName, matinHeader, soirHeader):
     #print("heure system ", datetime.now().time()) TODO
     for index in range(365):
         date = pd.read_csv(fileName, sep=';')["Date"][index]
         if date == requestDate:
-            horaire =  pd.read_csv(fileName, sep=';')[heureSoirHeader][index]     
+            horaire =  pd.read_csv(fileName, sep=';')[soirHeader][index]     
             return horaire
         else:
             continue
