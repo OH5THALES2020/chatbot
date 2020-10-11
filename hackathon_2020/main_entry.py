@@ -48,7 +48,7 @@ def hauteur_eau_intent(latitude,longitude):
     
     print(data)
         
-    hauteur = data["hauteur"]
+    hauteur = data.get("hauteur", 3)
     hauteur *= 10
     hauteur = math.ceil(hauteur)
     hauteur = hauteur / 10.
