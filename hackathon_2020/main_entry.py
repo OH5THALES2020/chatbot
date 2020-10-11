@@ -26,8 +26,8 @@ def pleine_mer_intent():
     msg = msg + " et le coefficient sera de {}.".format(getCoef("brest","11/10/2020"))
     return response_body(msg, msg)
 
-def meteo_marine_intent():
-    msg = condition_climat.getMeteoMarine("Brest")
+def meteo_marine_intent(ville):
+    msg = condition_climat.getMeteoMarine(ville)
     
     #     msg = "Bulletin côte 'La Hague – Penmarc'h' matin Prévisions pour la journée du samedi 10 octobre VENT : Nord-Ouest 4 à 5, fraichissant 5 à 6 en Manche l'après-midi. MER : agitée. HOULE : Ouest à Nord-Ouest 2 m sur pointe Bretagne. TEMPS : Ciel nuageux. VISIBILITE : Bonne."
     
@@ -65,7 +65,10 @@ def entry_api():
     if myreq["queryResult"]["intent"]["displayName"] == "heure":
         return hour_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Meteo marine":
-        return meteo_marine_intent()
+        ville = myreq["queryResult"]["parameters"]["geocity"]["location"]["city"]
+        if len(ville) == 0:
+            ville = "Brest"
+        return meteo_marine_intent(ville)
     elif myreq["queryResult"]["intent"]["displayName"] == "Pleine mer":
         return pleine_mer_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Hauteur eau":
