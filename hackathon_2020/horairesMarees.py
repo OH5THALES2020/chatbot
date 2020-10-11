@@ -16,7 +16,10 @@ def getMaree(ville, date, pm_bm='pm'):
     except NameError:
         print("Ville inconue")
     else:
-         return readTidesFile(fileName, date, pm_bm)
+        horaire = readTidesFile(fileName, date, pm_bm)
+        heure_list = horaire[0].split(':')
+        result = heure_list[0] + 'h'+ heure_list[1] 
+        return result
 
 def getDataFileName(ville):
     if ville is 'boulogne-sur-mer':
@@ -48,10 +51,10 @@ def searchTide(requestDate, fileName, heureMatinHeader, heureSoirHeader):
         date = pd.read_csv(fileName, sep=';')["Date"][index]
         if date == requestDate:
             print("found date ", date)
-            heureMatin =  pd.read_csv(fileName, sep=';')[heureMatinHeader][index]     
-            return heureMatin
+            horaire =  pd.read_csv(fileName, sep=';')[heureSoirHeader][index]     
+            return horaire
         else:
             continue
 
 if __name__=="__main__":
-    print(getMaree('larochelle',"10/10/2020"))
+    print(getMaree('brest',"11/10/2020"))
