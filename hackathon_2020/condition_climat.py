@@ -107,7 +107,9 @@ def getMeteoMarine(ville):
 
     returnedStr = ""
     if (bulletinCote == True):
-        returnedStr = returnedStr + "Bulletin pour la côte de '"+nomVille + "', "
+        returnedStr = returnedStr + "Bulletin cotier de '"+nomVille + "', "
+    elif (bulletinMontagne == True):
+        returnedStr = returnedStr + "Bulletin montagne de '"+nomVille + "', "
     else :
         returnedStr = returnedStr + "Météo pour la ville de '"+nomVille + "', "
         
