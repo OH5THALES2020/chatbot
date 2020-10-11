@@ -4,7 +4,7 @@ Created on 10 oct. 2020
 @author: philippe
 '''
 
-import requests
+import requests,math
 
 from datetime import datetime
 
@@ -59,6 +59,7 @@ class HauteurEau:
         self.amplitude = hmax - self.hauteur + 3.70
         
         resultat = {"hauteur" : self.hauteur, "duree" : dureeMontee, "amplitude" : self.amplitude}
+        print(resultat)
         
         return resultat
     
@@ -66,4 +67,22 @@ class HauteurEau:
         
         date = datetime.utcnow()
         
-        self.calculerHauteurDeau(48.03, -4.55, date)
+        self.printMsg(self.calculerHauteurDeau(48.03, -4.55, date))
+        self.printMsg(self.calculerHauteurDeau(47.44, -4.4, date))
+    
+    def printMsg(self,data):
+        hauteur = data.get("hauteur", 3)
+        hauteur *= 10
+        hauteur = math.ceil(hauteur)
+        hauteur = hauteur / 10.
+    
+        duree = data["duree"]
+     
+        amplitude = data["amplitude"]
+        amplitude *= 10
+        amplitude = math.ceil(amplitude)
+        amplitude = amplitude / 10.
+    
+        msg = "actuellement à votre position il y a {} m au-dessus du zéro. Cela va monter encore durant {} heures, de {} m. Voulez-vous un conseil pour le mouillage ?".format(hauteur,duree,amplitude)
+    
+        print(msg)
