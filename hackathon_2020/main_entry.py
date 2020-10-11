@@ -5,6 +5,8 @@ import json
 from datetime import datetime
 import condition_climat
 from horairesMarees import *
+from hackathon_2020.HauteurEau import HauteurEau
+import math
 
 app = Flask(__name__)
 
@@ -37,8 +39,31 @@ def etat_mer_intent():
     msg = "La mer va être agitée, avec un vent contre-courant, sans doute plus calme côté sud."
     return response_body(msg, msg)
 
-def hauteur_eau_intent():
-    msg = "actuellement à votre position il y a 4 m au-dessus du zéro. Cela va monter encore durant 3 heures, de 3 m. Voulez-vous un conseil pour le mouillage ?"
+def hauteur_eau_intent(latitude,longitude):
+    
+    waterHeightInterrogator = HauteurEau()
+    date = datetime.utcnow()
+    
+    data = waterHeightInterrogator.calculerHauteurDeau(latitude, longitude, date)
+    
+    print(data)
+        
+    hauteur = data["hauteur"]
+    hauteur *= 10
+    hauteur = math.ceil(hauteur)
+    hauteur = hauteur / 10.
+    
+    duree = data["duree"]
+     
+    amplitude = data["amplitude"]
+    amplitude *= 10
+    amplitude = math.ceil(amplitude)
+    amplitude = amplitude / 10.
+    
+    msg = "actuellement à votre position il y a {} m au-dessus du zéro. Cela va monter encore durant {] heures, de {} m. Voulez-vous un conseil pour le mouillage ?".format(hauteur,duree,amplitude)
+    
+    print(msg)
+    
     return response_body(msg, msg)
 
 def declaration_dauphins_intent():
@@ -77,7 +102,10 @@ def entry_api():
             ville = "Brest"
         return pleine_mer_intent(ville)
     elif myreq["queryResult"]["intent"]["displayName"] == "Hauteur eau":
-        return hauteur_eau_intent()
+        latitude = 47.44
+        longitude = 4.4
+        
+        return hauteur_eau_intent(latitude,longitude)
     elif myreq["queryResult"]["intent"]["displayName"] == "Etat mer":
         return etat_mer_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Declaration dauphins":
