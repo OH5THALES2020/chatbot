@@ -5,7 +5,7 @@ import json
 from datetime import datetime
 import condition_climat
 from horairesMarees import *
-from hackathon_2020.HauteurEau import HauteurEau
+from HauteurEau import HauteurEau
 import math
 
 app = Flask(__name__)
