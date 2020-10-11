@@ -83,6 +83,9 @@ def getMeteoMarine(ville):
     list_places = client.search_places(ville)
     my_place = list_places[0]
     url_weather = "http://ws.meteofrance.com/ws//getDetail/france/"+ str(my_place.insee) + "0.json"
+    
+    #url_weather = "http://ws.meteofrance.com/ws//getDetail/france/290190.json"
+    
     print (url_weather)
     
     r_weather = requests.get(url_weather)
@@ -123,7 +126,7 @@ def getMeteoMarine(ville):
     elif heure >= 12:
         returnedStr = returnedStr + " Après-midi. "
     else:
-        returnedStr =" Matin. "
+        returnedStr = returnedStr + " Matin. "
 
     dateStr = tutu.strftime("%A %e %B")
     print (dateStr)
