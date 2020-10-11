@@ -65,8 +65,9 @@ def entry_api():
     if myreq["queryResult"]["intent"]["displayName"] == "heure":
         return hour_intent()
     elif myreq["queryResult"]["intent"]["displayName"] == "Meteo marine":
-        ville = myreq["queryResult"]["parameters"]["location"]["city"]
-        if len(ville) == 0:
+        try:
+            ville = myreq["queryResult"]["parameters"]["location"]["city"]
+        except TypeError:
             ville = "Brest"
         return meteo_marine_intent(ville)
     elif myreq["queryResult"]["intent"]["displayName"] == "Pleine mer":
