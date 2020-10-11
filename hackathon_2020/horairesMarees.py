@@ -9,17 +9,27 @@ tidesDataFileSaintMalo = "./hackathon_2020/data/annuaire_maree_SAINT-MALO_2020.c
 tidesDataFileSocoa = "./hackathon_2020/data/annuaire_maree_SOCOA_2020.csv"
 
 def getMaree(ville, date, pm_bm='pm'):
-    print("REQUEST ville: ", ville, ", date: ", date, ", PM/BM: "+pm_bm)
+    print("REQUEST horaire pour ville: ", ville, ", date: ", date, ", PM/BM: "+pm_bm)
     fileName = getDataFileName(ville)
     try:
         fileName
     except NameError:
         print("Ville inconue")
     else:
-        horaire = readTidesFile(fileName, date, pm_bm)
+        horaire = readTidesFileHoraire(fileName, date, pm_bm)
         heure_list = horaire[0].split(':')
         result = heure_list[0] + 'h'+ heure_list[1] 
         return result
+
+def getCoef(ville, date):
+    print("REQUEST coef pour ville: ", ville, ", date: ", date)
+    fileName = getDataFileName(ville)
+    try:
+        fileName
+    except NameError:
+        print("Ville inconue")
+    else: 
+        return round(readTidesFileCoef(fileName, date))
 
 def getDataFileName(ville):
     if ville is 'boulogne-sur-mer':
@@ -37,7 +47,7 @@ def getDataFileName(ville):
     else:
         pass
 
-def readTidesFile(fileName, date, pm_bm):
+def readTidesFileHoraire(fileName, date, pm_bm):
     if pm_bm is "pm":
         return searchTide(date, fileName, "Heure PM Matin", "Heure PM Soir"),
     elif pm_bm is "bm" :
@@ -45,12 +55,14 @@ def readTidesFile(fileName, date, pm_bm):
     else:
         return "define pm/bm"
 
+def readTidesFileCoef(fileName, date):
+        return searchTide(date, fileName, "Coeff. Maree Matin","Coeff. Maree Soir")
+
 def searchTide(requestDate, fileName, heureMatinHeader, heureSoirHeader):
-    print("heure system ", datetime.now().time())
+    #print("heure system ", datetime.now().time()) TODO
     for index in range(365):
         date = pd.read_csv(fileName, sep=';')["Date"][index]
         if date == requestDate:
-            print("found date ", date)
             horaire =  pd.read_csv(fileName, sep=';')[heureSoirHeader][index]     
             return horaire
         else:
@@ -58,3 +70,4 @@ def searchTide(requestDate, fileName, heureMatinHeader, heureSoirHeader):
 
 if __name__=="__main__":
     print(getMaree('brest',"11/10/2020"))
+    print(getCoef('brest',"11/10/2020"))

@@ -22,9 +22,8 @@ def hour_intent():
     return response_body(msg, msg)
 
 def pleine_mer_intent():
-    horaire = getMaree("brest","10/10/2020","pm")
-    msg = "la mer sera pleine a {}".format(horaire)
-    msg = msg + " et le coefficient sera de 95."
+    msg = "la mer sera pleine a {}".format(getMaree("brest","11/10/2020","pm"))
+    msg = msg + " et le coefficient sera de {}.".format(getCoef("brest","11/10/2020"))
     return response_body(msg, msg)
 
 def meteo_marine_intent():
