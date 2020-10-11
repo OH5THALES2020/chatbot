@@ -25,7 +25,7 @@ def pleine_mer_intent():
     heure = getMaree("brest","10/10/2020","pm")
     heure_list = heure[0].split(':')
     result = heure_list[0] + 'h'+ heure_list[1] 
-    msg = 'Ocean Botte' + "la mer sera pleine a {}".format(result)
+    msg = "la mer sera pleine a {}".format(result)
     msg = msg + " et le coefficient sera de 95."
     return response_body(msg, msg)
 
@@ -37,15 +37,15 @@ def meteo_marine_intent():
     return response_body(msg, msg)
 
 def etat_mer_intent():
-    msg = 'Ocean Botte' + "La mer va être agitée, avec un vent contre-courant, sans doute plus calme côté sud."
+    msg = "La mer va être agitée, avec un vent contre-courant, sans doute plus calme côté sud."
     return response_body(msg, msg)
 
 def hauteur_eau_intent():
-    msg = 'Ocean Botte' +  "actuellement à votre position il y a 4 m au-dessus du zéro. Cela va monter encore durant 3 heures, de 3 m. Voulez-vous un conseil pour le mouillage ?"
+    msg = "actuellement à votre position il y a 4 m au-dessus du zéro. Cela va monter encore durant 3 heures, de 3 m. Voulez-vous un conseil pour le mouillage ?"
     return response_body(msg, msg)
 
 def declaration_dauphins_intent():
-    msg = 'Ocean Botte' + "très bien, je reporte cette observation aux organismes intéressés."
+    msg = "très bien, je reporte cette observation aux organismes intéressés."
     return response_body(msg, msg)
 
 def default_intent():
