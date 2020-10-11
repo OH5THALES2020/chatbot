@@ -121,14 +121,15 @@ def getMeteoMarine(ville):
 
     heure = int(tutu.strftime("%H"))
 
-    if heure >= 22 :
-        returnedStr = returnedStr + " Nuit. "
-    elif heure >= 18:
-        returnedStr = returnedStr + " Soir. "
-    elif heure >= 12:
-        returnedStr = returnedStr + " Après-midi. "
-    else:
-        returnedStr = returnedStr + " Matin. "
+    if (bulletinCote == True):
+        if heure >= 22 :
+            returnedStr = returnedStr + " Nuit. "
+        elif heure >= 18:
+            returnedStr = returnedStr + " Soir. "
+        elif heure >= 12:
+            returnedStr = returnedStr + " Après-midi. "
+        else:
+            returnedStr = returnedStr + " Matin. "
 
     dateStr = tutu.strftime("%A %e %B")
     print (dateStr)
