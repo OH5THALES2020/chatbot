@@ -79,11 +79,10 @@ def getWind(ville):
 
 
 def getMeteoMarine(ville):
-    #client = MeteoFranceClient()
-    #list_places = client.search_places(ville)
-    #my_place = list_places[0]
-    #url_weather = "http://ws.meteofrance.com/ws//getDetail/france/"+ str(my_place.insee) + "0.json"
-    url_weather = "http://ws.meteofrance.com/ws//getDetail/france/290190.json"
+    client = MeteoFranceClient()
+    list_places = client.search_places(ville)
+    my_place = list_places[0]
+    url_weather = "http://ws.meteofrance.com/ws//getDetail/france/"+ str(my_place.insee) + "0.json"
     print (url_weather)
     
     r_weather = requests.get(url_weather)
