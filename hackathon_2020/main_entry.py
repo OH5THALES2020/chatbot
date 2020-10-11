@@ -60,7 +60,7 @@ def hauteur_eau_intent(latitude,longitude):
     amplitude = math.ceil(amplitude)
     amplitude = amplitude / 10.
     
-    msg = "actuellement à votre position il y a {} m au-dessus du zéro. Cela va monter encore durant {] heures, de {} m. Voulez-vous un conseil pour le mouillage ?".format(hauteur,duree,amplitude)
+    msg = "actuellement à votre position il y a {} m au-dessus du zéro. Cela va monter encore durant {} heures, de {} m. Voulez-vous un conseil pour le mouillage ?".format(hauteur,duree,amplitude)
     
     print(msg)
     
