@@ -103,7 +103,7 @@ def entry_api():
         return pleine_mer_intent(ville)
     elif myreq["queryResult"]["intent"]["displayName"] == "Hauteur eau":
         latitude = 47.44
-        longitude = 4.4
+        longitude = -4.4
         
         return hauteur_eau_intent(latitude,longitude)
     elif myreq["queryResult"]["intent"]["displayName"] == "Etat mer":
